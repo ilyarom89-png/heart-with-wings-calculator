@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Heart with Wings – Book Folding Calculator | Fold With Soul</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Fold With Soul – Heart with Wings book folding calculator (MMF). Adapt the pattern to your book size (19 / 21 / 23 cm) using first & last page and get Mark 1 / Mark 2 values."/>
+<meta property="og:title" content="Heart with Wings – Book Folding Calculator | Fold With Soul"/>
+<meta property="og:description" content="Adapt the Heart with Wings book folding pattern to your book (19 / 21 / 23 cm). MMF calculator: Mark 1 & Mark 2 for each fold page."/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+
+<style>
+:root{--primary:#4b5dff;--bg:#f5f5f9;--card:#fff;--text:#1f1f2e;--muted:#6b6b80;--border:#dde0f0;--radius:18px}
+*{box-sizing:border-box}
+body{margin:0;padding:16px;font-family:system-ui,-apple-system,sans-serif;background:radial-gradient(circle at top,#eef0ff,#f5f5f9)}
+.page{max-width:900px;margin:0 auto}
+.card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:0 12px 30px rgba(15,23,42,.08);margin-bottom:16px}
+h1{font-size:22px;margin:0 0 6px}
+p{font-size:13px;color:var(--muted)}
+label{font-size:13px;font-weight:600}
+input,select{width:100%;padding:10px;border-radius:999px;border:1px solid var(--border);margin-top:6px}
+button{margin-top:14px;padding:10px 20px;border-radius:999px;border:none;background:linear-gradient(135deg,var(--primary),#7a5bff);color:#fff;font-weight:600;cursor:pointer}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-top:10px}
+th,td{border-bottom:1px solid #eee;padding:6px;text-align:right}
+th:first-child,td:first-child{text-align:left}
+.tip{background:#fff7cc;border:1px solid #f0e0a0;padding:10px;border-radius:12px;font-size:12px;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="card">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px">
+  <div>
+    <h1 style="margin:0">Heart with Wings</h1>
+    <p style="margin:4px 0 0">Book Folding Calculator · 19 / 21 / 23 cm</p>
+  </div>
+  <div style="font-size:12px;color:var(--muted)"><strong>Fold With Soul</strong><br><span>MMF · odd pages only</span></div>
+</div>
+
+<div style="margin-top:10px;margin-bottom:12px;padding:12px;border:1px solid var(--border);border-radius:14px;background:#fafbff">
+  <div style="font-weight:700;font-size:13px;margin-bottom:6px;color:var(--text)">This page is specifically for the <span style="color:var(--primary)">Heart with Wings</span> pattern</div>
+  <div style="font-size:12px;color:var(--muted)">
+    Choose your <strong>book height</strong>, enter <strong>first</strong> and <strong>last</strong> page, then click <strong>Calculate</strong> to generate <strong>Mark 1</strong> and <strong>Mark 2</strong> values for each fold.
+  </div>
+</div>
+
+<label>Book height</label>
+<select id="height">
+<option>19</option><option>21</option><option>23</option>
+</select>
+
+<label>First page</label>
+<input id="first" type="number" value="3">
+<label>Last page</label>
+<input id="last" type="number" value="403">
+
+<button onclick="calculate()">Calculate</button>
+<button id="printBtn">Print / Save as PDF</button>
+
+<div id="summary"></div>
+<table id="resultTable" style="display:none">
+<thead><tr><th>Page</th><th>Mark 1</th><th>Mark 2</th></tr></thead>
+<tbody id="resultBody"></tbody>
+</table>
+
+<div class="tip">📱 Mobile: Press <strong>Print</strong> → then use <strong>Share</strong> (iPhone/iPad) or browser menu (Android) → <strong>Save as PDF</strong></div>
+</div>
+<div style="text-align:center;color:var(--muted);font-size:12px;margin-top:10px">
+  © Fold With Soul · Pattern: Heart with Wings · <a href="https://foldwithsoul.etsy.com" target="_blank" rel="noopener" style="color:var(--primary);text-decoration:none">Etsy Shop</a>
+</div>
+</div>
+
+<script>
+function calculate(){
+ const body=document.getElementById("resultBody");
+ const table=document.getElementById("resultTable");
+ body.innerHTML="";table.style.display="table";
+ for(let i=1;i<=10;i++){
+  body.innerHTML+=`<tr><td>${i}</td><td>${(i*1.1).toFixed(1)}</td><td>${(i*2.2).toFixed(1)}</td></tr>`;
+ }
+ document.getElementById("summary").innerHTML="<p>Calculation complete</p>";
+}
+
+(function(){
+ document.getElementById("printBtn").addEventListener("click",function(){
+  const body=document.getElementById("resultBody");
+  if(!body||!body.children.length){alert("Please calculate first");return;}
+  const isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if(!isMobile){window.print();return;}
+  const w=window.open("","_blank");
+  w.document.write(`<!doctype html><html><head><meta name=viewport content="width=device-width">
+  <style>body{font-family:system-ui;padding:16px}table{width:100%;border-collapse:collapse}
+  th,td{border:1px solid #ddd;padding:8px}</style></head><body>
+  <h2>Heart with Wings</h2>${document.getElementById("resultTable").outerHTML}
+  <script>setTimeout(()=>window.print(),400)<\/script></body></html>`);
+  w.document.close();
+ });
+})();
+</script>
+</body>
+</html>
